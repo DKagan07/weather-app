@@ -70,7 +70,7 @@ type forecastday struct {
 	Date_epoch int    `json:"date_epoch,omitempty"`
 	Day        day    `json:"day,omitempty"`
 	Astro      astro  `json:"astro,omitempty"`
-	Hour       []hour
+	Hour       []hour `json:"hour,omitempty"`
 }
 
 type astro struct {
