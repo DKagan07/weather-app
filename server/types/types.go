@@ -1,9 +1,9 @@
-package main
+package types
 
 type WeatherOutput struct {
 	Location Location
 	Current  Current
-	Forecast map[string]string
+	Forecast Forecast
 }
 
 type Location struct {
@@ -61,7 +61,7 @@ type condition struct {
 	Code int    `json:"code"`
 }
 
-type Forcast struct {
+type Forecast struct {
 	Forecastday []forecastday `json:"forecastday"`
 }
 
@@ -69,6 +69,18 @@ type forecastday struct {
 	Date       string `json:"date,omitempty"`
 	Date_epoch int    `json:"date_epoch,omitempty"`
 	Day        day    `json:"day,omitempty"`
+	Astro      astro  `json:"astro,omitempty"`
+	Hour       []hour
+}
+
+type astro struct {
+	Sunrise           string `json:"sunrise,omitempty"`
+	Sunset            string `json:"sunset,omitempty"`
+	Moonrise          string `json:"moonrise,omitempty"`
+	Moon_phase        string `json:"moon_phase,omitempty"`
+	Moon_illumination int    `json:"moon_illumination,omitempty"`
+	Is_moon_up        int    `json:"is_moon_up,omitempty"`
+	Is_sun_up         int    `json:"is_sun_up,omitempty"`
 }
 
 type day struct {
@@ -93,4 +105,43 @@ type day struct {
 	Condition            condition  `json:"condition,omitempty"`
 	Uv                   float32    `json:"uv,omitempty"`
 	Air_quality          airquality `json:"air_quality,omitempty"`
+}
+
+type hour struct {
+	Time_epoch     int        `json:"time_epoch,omitempty"`
+	Time           string     `json:"time,omitempty"`
+	Temp_c         float32    `json:"temp_c,omitempty"`
+	Temp_f         float32    `json:"temp_f,omitempty"`
+	Is_day         int        `json:"is_day,omitempty"`
+	Condition      condition  `json:"condition,omitempty"`
+	Wind_mph       float32    `json:"wind_mph,omitempty"`
+	Wind_kph       float32    `json:"wind_kph,omitempty"`
+	Wind_degree    int        `json:"wind_degree,omitempty"`
+	Wind_dir       string     `json:"wind_dir,omitempty"`
+	Pressure_mb    float32    `json:"pressure_mb,omitempty"`
+	Pressure_in    float32    `json:"pressure_in,omitempty"`
+	Precip_mm      float32    `json:"precip_mm,omitempty"`
+	Precip0_in     float32    `json:"precip_0_in,omitempty"`
+	Humidity       int        `json:"humidity,omitempty"`
+	Cloud          int        `json:"cloud,omitempty"`
+	Feelslike_c    float32    `json:"feelslike_c,omitempty"`
+	Feelslike_f    float32    `json:"feelslike_f,omitempty"`
+	Windchill_c    float32    `json:"windchill_c,omitempty"`
+	Windchill_f    float32    `json:"windchill_f,omitempty"`
+	Heatindex_c    float32    `json:"heatindex_c,omitempty"`
+	Heatindex_f    float32    `json:"heatindex_f,omitempty"`
+	Dewpoint_c     float32    `json:"dewpoint_c,omitempty"`
+	Dewpoint_f     float32    `json:"dewpoint_f,omitempty"`
+	Will_it_rain   int        `json:"will_it_rain,omitempty"`
+	Chance_of_rain int        `json:"chance_of_rain,omitempty"`
+	Will_it_snow   int        `json:"will_it_snow,omitempty"`
+	Chance_of_snow int        `json:"chance_of_snow,omitempty"`
+	Vis_km         float32    `json:"vis_km,omitempty"`
+	Vis_miles      float32    `json:"vis_miles,omitempty"`
+	Gust_mph       float32    `json:"gust_mph,omitempty"`
+	Gust_kph       float32    `json:"gust_kph,omitempty"`
+	Uv             float32    `json:"uv,omitempty"`
+	Air_quality    airquality `json:"air_quality,omitempty"`
+	Short_rad      float32    `json:"short_rad,omitempty"`
+	Diff_rad       float32    `json:"diff_rad,omitempty"`
 }
