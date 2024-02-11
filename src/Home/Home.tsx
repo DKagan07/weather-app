@@ -1,37 +1,59 @@
-import { createResource, createSignal, Show } from "solid-js"
-import { queryZipCode } from "./queryzipcode"
+import { createResource, createSignal } from "solid-js"
+import { WeatherOutput } from "./queryzipcode"
+
+export const queryZipCode = async (query: string) => {
+    if (query.length === 0) return
+    const response = await fetch("/api/" + query)
+    const res = (await response.json()) as WeatherOutput
+    return res
+}
 
 export default function Home() {
-    const [input, setInput] = createSignal("")
-    const [data] = createResource(input, queryZipCode)
+    const [inputSignal, setInputSignal] = createSignal("")
+    const [querySignal, setQuerySignal] = createSignal("")
+    const [weatherResource] = createResource(querySignal, queryZipCode)
+
     return (
         <>
             <form>
                 <h2> Put in Your US Zip Code to Get the Weather</h2>
                 <div>
+                    <label for="zipcode">Search here </label>
                     <input
-                        name="zipcode"
+                        id="zipcode"
+                        value={inputSignal()}
                         placeholder="Input Zip Code"
                         type="text"
                         inputmode="numeric"
                         onInput={(e) => {
-                            setInput(e.currentTarget.value)
+                            setInputSignal(e.currentTarget.value?.trim())
                         }}
-                    />{" "}
-                    <button
-                        type="submit"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            queryZipCode(input())
-                        }}
-                    >
-                        Look up
-                    </button>
+                    />
                 </div>
+                <button
+                    type="submit"
+                    onClick={(e) => {
+                        e.preventDefault()
+                        setQuerySignal(inputSignal())
+                    }}
+                >
+                    Look up
+                </button>
             </form>
-            <Show when={!data.loading} fallback={<p>Searching...</p>}>
-                <p>{data()}</p>
-            </Show>
+
+            {console.log(weatherResource(), weatherResource.loading)}
+
+            {/* <Show when={weatherResource.error}> ERROR MESSAGE </Show>
+    
+            <Show when={!weatherResource.loading && !weatherResource.error} fallback={<>Loading...</>}>
+                <h1>{weatherResource()?.Location?.Name} {weatherResource()?.Current?.Temp_c}</h1>
+    
+                <ul>
+                    <For each={weatherResource()?.Forecast?.Forecastday}>
+                        {(day, index) => <li data-key={index()}>{day?.Date_epoch}</li>}
+                    </For>
+                </ul>
+                </Show> */}
         </>
     )
 }
