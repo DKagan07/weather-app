@@ -9,11 +9,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-
-	"DKagan07/weather-app/server/types"
 )
 
-// Looking at using this API: https://www.weatherapi.com/
+// Using this API: https://www.weatherapi.com/
 func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
@@ -55,7 +53,6 @@ func ReadWeather(w http.ResponseWriter, r *http.Request) {
 		zipcode,
 	)
 
-	wD := types.WeatherOutput{}
 	resp, err := http.Get(url)
 	if err != nil {
 		http.Error(w, "with GET request", 404)
@@ -69,14 +66,15 @@ func ReadWeather(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Err: ", err)
 	}
 
-	if err = json.Unmarshal(body, &wD); err != nil {
-		fmt.Println("err with unmarshal")
+	if _, err = w.Write(body); err != nil {
+		http.Error(w, "writing request body", 405)
+		fmt.Println("cannot write api body to client")
 	}
 
-	fmt.Printf("%+v\n", wD)
-
+	// wD := types.WeatherOutput{}
+	// if err = json.Unmarshal(body, &wD); err != nil {
+	// 	fmt.Println("err with unmarshal")
+	// }
 	//
-	// need to do something with `zipcode`
-	// probably an api call with that zip code....need to find what API to use
-	// fmt.Println(weatherData)
+	// fmt.Printf("%+v\n", wD)
 }
