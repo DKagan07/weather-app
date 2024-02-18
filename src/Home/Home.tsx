@@ -1,12 +1,6 @@
-import { createEffect, createResource, createSignal, For, Show } from "solid-js"
-import { WeatherOutput } from "./queryzipcode"
-
-export const queryZipCode = async (query: string) => {
-	if (query.length === 0) return
-	const response = await fetch("/api/" + query)
-	const res = (await response.json()) as WeatherOutput
-	return res
-}
+import { createEffect, createResource, createSignal, Show } from "solid-js"
+import { queryZipCode } from "./queryzipcode"
+import WeatherInfo from "./weatherInfo"
 
 export default function Home() {
 	const [inputSignal, setInputSignal] = createSignal("")
@@ -47,7 +41,7 @@ export default function Home() {
 
 			<Show when={!weatherResource.loading} fallback={<>Loading...</>}>
 				{/* This shows all the data, now I think I need to parse it in an element and branch off?*/}
-				{JSON.stringify(weatherResource())}
+				<WeatherInfo wi={weatherResource()} />
 			</Show>
 		</>
 	)

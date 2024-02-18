@@ -1,19 +1,9 @@
-// export const queryZipCode = async (query: string) => {
-//     // Query is empty, don't return anything
-//     // Need the check here otherwise it'll hit the endpoint on load
-//     console.log("inside queryZipCode")
-//     if (!query) return
-//     console.log("after check")
-//     console.log("query: ", query)
-//     try {
-//         console.log("inside try block")
-//         const response = await fetch(`/api/${query}`)
-//         const res = (await response.json()) as WeatherOutput
-//         return res
-//     } catch (e) {
-//         console.log("error: ", e)
-//     }
-// }
+export const queryZipCode = async (query: string) => {
+	if (query.length === 0) return
+	const response = await fetch("/api/" + query)
+	const res = (await response.json()) as WeatherOutput
+	return res
+}
 
 //**************************************************************
 //
@@ -21,147 +11,147 @@
 //
 //**************************************************************
 export type WeatherOutput = {
-    Location: Location
-    Current: Current
-    Forecast: Forecast
+	location: Location
+	current: Current
+	forecast: Forecast
 }
 
 type Location = {
-    Name: string
-    Region: string
-    Country: string
-    Lat: number
-    Lon: number
-    Tz_id: string
-    Localtime_epoch: number
-    Localtime: string
+	name: string
+	region: string
+	country: string
+	lat: number
+	lon: number
+	tz_id: string
+	localtime_epoch: number
+	localtime: string
 }
 
 type Current = {
-    Last_updated_epoch: number
-    Last_updated: string
-    Temp_c: number
-    Temp_f: number
-    Is_day: number
-    Condition: condition
-    Wind_mph: number
-    Wind_kph: number
-    Wind_degree: number
-    Wind_dir: string
-    Pressure_mb: number
-    Pressure_in: number
-    Precip_mm: number
-    Precip0_in: number
-    Humidity: number
-    Cloud: number
-    Feelslike_c: number
-    Feelslike_f: number
-    Vis_km: number
-    Vis_miles: number
-    Uv: number
-    Gust_mph: number
-    Gust_kph: number
-    Air_quality: airquality
+	last_updated_epoch: number
+	last_updated: string
+	temp_c: number
+	temp_f: number
+	is_day: number
+	condition: condition
+	wind_mph: number
+	wind_kph: number
+	wind_degree: number
+	wind_dir: string
+	pressure_mb: number
+	pressure_in: number
+	precip_mm: number
+	precip0_in: number
+	humidity: number
+	cloud: number
+	feelslike_c: number
+	feelslike_f: number
+	vis_km: number
+	vis_miles: number
+	uv: number
+	gust_mph: number
+	gust_kph: number
+	Air_quality: airquality
 }
 
 type airquality = {
-    Co: number
-    No2: number
-    O3: number
-    So2: number
-    Pm2_5: number
-    Pm10: number
-    Us_epa_index: number
-    Gb_defra_index: number
+	co: number
+	no2: number
+	o3: number
+	so2: number
+	pm2_5: number
+	pm10: number
+	us_epa_index: number
+	gb_defra_index: number
 }
 
 type condition = {
-    Text: string
-    Icon: string
-    Code: number
+	text: string
+	icon: string
+	code: number
 }
 
 type Forecast = {
-    Forecastday: forecastday[]
+	forecastday: forecastday[]
 }
 
 type forecastday = {
-    Date: string
-    Date_epoch: number
-    Day: day
-    Astro: astro
-    Hour: hour[]
+	date: string
+	date_epoch: number
+	day: day
+	astro: astro
+	hour: hour[]
 }
 
 type astro = {
-    Sunrise: string
-    Sunset: string
-    Moonrise: string
-    Moon_phase: string
-    Moon_illumination: number
-    Is_moon_up: number
-    Is_sun_up: number
+	sunrise: string
+	sunset: string
+	moonrise: string
+	moon_phase: string
+	moon_illumination: number
+	is_moon_up: number
+	is_sun_up: number
 }
 
 type day = {
-    Maxtemp_c: number
-    Maxtemp_f: number
-    Mnumberemp_c: number
-    Mnumberemp_f: number
-    Avgtemp_c: number
-    Avgtemp_f: number
-    Maxwind_mph: number
-    Maxwind_kph: number
-    Totalprecip_mm: number
-    Totalprecip_in: number
-    Totalsnow_cm: number
-    Avgvis_km: number
-    Avgvis_miles: number
-    Avghumidity: number
-    Daily_will_it_rain: number
-    Daily_chance_of_rain: number
-    Daily_will_it_snow: number
-    Daily_chance_of_snow: number
-    Condition: condition
-    Uv: number
-    Air_quality: airquality
+	maxtemp_c: number
+	maxtemp_f: number
+	mnumberemp_c: number
+	mnumberemp_f: number
+	avgtemp_c: number
+	avgtemp_f: number
+	maxwind_mph: number
+	maxwind_kph: number
+	totalprecip_mm: number
+	totalprecip_in: number
+	totalsnow_cm: number
+	avgvis_km: number
+	avgvis_miles: number
+	avghumidity: number
+	daily_will_it_rain: number
+	daily_chance_of_rain: number
+	daily_will_it_snow: number
+	daily_chance_of_snow: number
+	condition: condition
+	uv: number
+	air_quality: airquality
 }
 
 type hour = {
-    Time_epoch: number
-    Time: string
-    Temp_c: number
-    Temp_f: number
-    Is_day: number
-    Condition: condition
-    Wind_mph: number
-    Wind_kph: number
-    Wind_degree: number
-    Wind_dir: string
-    Pressure_mb: number
-    Pressure_in: number
-    Precip_mm: number
-    Precip0_in: number
-    Humidity: number
-    Cloud: number
-    Feelslike_c: number
-    Feelslike_f: number
-    Windchill_c: number
-    Windchill_f: number
-    Heatindex_c: number
-    Heatindex_f: number
-    Dewponumber_c: number
-    Dewponumber_f: number
-    Will_it_rain: number
-    Chance_of_rain: number
-    Will_it_snow: number
-    Chance_of_snow: number
-    Vis_km: number
-    Vis_miles: number
-    Gust_mph: number
-    Gust_kph: number
-    Uv: number
-    Air_quality: airquality
-    Short_rad: number
-    Diff_rad: number
+	time_epoch: number
+	time: string
+	temp_c: number
+	temp_f: number
+	is_day: number
+	condition: condition
+	wind_mph: number
+	wind_kph: number
+	wind_degree: number
+	wind_dir: string
+	pressure_mb: number
+	pressure_in: number
+	precip_mm: number
+	precip0_in: number
+	humidity: number
+	cloud: number
+	feelslike_c: number
+	feelslike_f: number
+	windchill_c: number
+	windchill_f: number
+	heatindex_c: number
+	heatindex_f: number
+	dewponumber_c: number
+	dewponumber_f: number
+	will_it_rain: number
+	chance_of_rain: number
+	will_it_snow: number
+	chance_of_snow: number
+	vis_km: number
+	vis_miles: number
+	gust_mph: number
+	gust_kph: number
+	uv: number
+	air_quality: airquality
+	short_rad: number
+	diff_rad: number
 }

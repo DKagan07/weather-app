@@ -10,7 +10,7 @@ import Home from "./Home/Home"
 // }
 
 const App: Component = () => {
-    return <Home />
+	return <Home />
 }
 
 export default App
