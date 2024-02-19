@@ -31,7 +31,7 @@ type Current struct {
 	Pressure_mb        float32    `json:"pressure_mb,omitempty"`
 	Pressure_in        float32    `json:"pressure_in,omitempty"`
 	Precip_mm          float32    `json:"precip_mm,omitempty"`
-	Precip0_in         float32    `json:"precip_0_in,omitempty"`
+	Precip_in          float32    `json:"precip_in,omitempty"`
 	Humidity           int        `json:"humidity,omitempty"`
 	Cloud              int        `json:"cloud,omitempty"`
 	Feelslike_c        float32    `json:"feelslike_c,omitempty"`

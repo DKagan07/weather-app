@@ -51,7 +51,7 @@ type Current = {
 	uv: number
 	gust_mph: number
 	gust_kph: number
-	Air_quality: airquality
+	air_quality: airquality
 }
 
 type airquality = {
